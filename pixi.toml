@@ -1,0 +1,13 @@
+[project]
+name = "Projektarbeit-Streamlit"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["XhenZui <64024277+XhenZui@users.noreply.github.com>"]
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[tasks]
+
+[dependencies]
+python = ">=3.12.7,<4"
+streamlit = ">=1.39.0,<2"
