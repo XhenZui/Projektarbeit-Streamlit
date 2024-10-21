@@ -5,9 +5,22 @@
             "name": "Pixi Run Streamlit App",
             "type": "node-terminal", // or "bash" if you prefer
             "request": "launch",
-            "command": "pixi run streamlit run map_with_new_marker.py",
+            "command": "pixi run streamlit run travel_log.py",
             "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}"
-        }
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Python:Streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "travel_log.py",
+                "--server.port",
+                "4242"
+            ]
+        },
     ]
+
 }
