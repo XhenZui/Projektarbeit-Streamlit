@@ -23,6 +23,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/aws-crt-cpp-0.28.3-hd65be8e_5.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/aws-sdk-cpp-1.11.407-h25dd3c2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/blinker-1.8.2-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/branca-0.7.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/brotli-python-1.1.0-py312h275cf98_2.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h2466b09_7.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/c-ares-1.33.1-h2466b09_0.conda
@@ -39,6 +40,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/decorator-5.1.1-pyhd8ed1ab_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.2.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/executing-2.1.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/folium-0.17.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/freetype-2.12.1-hdaf720e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/gitdb-4.0.11-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/gitpython-3.1.43-pyhd8ed1ab_0.conda
@@ -147,6 +149,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/snappy-1.2.1-h23299a8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/stack_data-0.6.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/streamlit-1.39.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/streamlit-folium-0.23.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/tbb-2021.7.0-h91493d7_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/tenacity-9.0.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/tk-8.6.13-h5226925_1.conda
@@ -169,6 +172,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/win_inet_pton-1.1.0-pyh7428d3b_7.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/xorg-libxau-1.0.11-h0e40799_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/xorg-libxdmcp-1.1.5-h0e40799_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/xyzservices-2024.9.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/xz-5.2.6-h8d14728_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/yaml-0.2.5-h8ffe710_2.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.5-ha9f60a1_6.conda
@@ -520,6 +524,22 @@ packages:
   size: 14707
   timestamp: 1715091300511
 - kind: conda
+  name: branca
+  version: 0.7.2
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/branca-0.7.2-pyhd8ed1ab_0.conda
+  sha256: 9f7df349cb5a8852804d5bb1f5f49e3076a55ac7229b9c114bb5f7461f497ba7
+  md5: 5f1c719f1cac0aee5e6bd6ca7d54a7fa
+  depends:
+  - jinja2 >=3
+  - python >=3.7
+  license: MIT
+  license_family: MIT
+  size: 28923
+  timestamp: 1714071906758
+- kind: conda
   name: brotli-python
   version: 1.1.0
   build: py312h275cf98_2
@@ -772,6 +792,26 @@ packages:
   license_family: MIT
   size: 28337
   timestamp: 1725214501850
+- kind: conda
+  name: folium
+  version: 0.17.0
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/folium-0.17.0-pyhd8ed1ab_0.conda
+  sha256: d5c4153cad0154112daf0db648afe82ad7930523e2cb9f7379bb2d148fac0537
+  md5: 9b96a3e6e0473b5722fa4fbefcefcded
+  depends:
+  - branca >=0.6.0
+  - jinja2 >=2.9
+  - numpy
+  - python >=3.8
+  - requests
+  - xyzservices
+  license: MIT
+  license_family: MIT
+  size: 78894
+  timestamp: 1718606077008
 - kind: conda
   name: freetype
   version: 2.12.1
@@ -2784,6 +2824,25 @@ packages:
   size: 7138788
   timestamp: 1727818465060
 - kind: conda
+  name: streamlit-folium
+  version: 0.23.0
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/streamlit-folium-0.23.0-pyhd8ed1ab_0.conda
+  sha256: 39bf9ce79427f00841da1eaf4ebf53561e1949ec9086d4e658252ef64aea9dce
+  md5: e1abd3b655f5ae9223ce71f7cf878326
+  depends:
+  - branca
+  - folium >=0.13,!=0.15
+  - jinja2
+  - python >=3.9
+  - streamlit >=1.13
+  license: MIT
+  license_family: MIT
+  size: 283690
+  timestamp: 1727726693849
+- kind: conda
   name: tbb
   version: 2021.7.0
   build: h91493d7_0
@@ -3131,6 +3190,21 @@ packages:
   license_family: MIT
   size: 69920
   timestamp: 1727795651979
+- kind: conda
+  name: xyzservices
+  version: 2024.9.0
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/xyzservices-2024.9.0-pyhd8ed1ab_0.conda
+  sha256: 2dd2825b5a246461a95a0affaf7e1d459f7cc0ae68ad2dd8aab360c2e5859488
+  md5: 156c91e778c1d4d57b709f8c5333fd06
+  depends:
+  - python >=3.8
+  license: BSD-3-Clause
+  license_family: BSD
+  size: 46887
+  timestamp: 1725366457240
 - kind: conda
   name: xz
   version: 5.2.6

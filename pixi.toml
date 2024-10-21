@@ -11,3 +11,7 @@ platforms = ["win-64"]
 [dependencies]
 python = ">=3.12.7,<4"
 streamlit = ">=1.39.0,<2"
+pandas = ">=2.2.3,<3"
+numpy = ">=1.26.4,<2"
+streamlit-folium = ">=0.23.0,<0.24"
+requests = ">=2.32.3,<3"
