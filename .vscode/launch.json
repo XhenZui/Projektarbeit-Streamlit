@@ -5,7 +5,7 @@
             "name": "Pixi Run Streamlit App",
             "type": "node-terminal", // or "bash" if you prefer
             "request": "launch",
-            "command": "pixi run streamlit run map_with_last_click.py",
+            "command": "pixi run streamlit run map_with_new_marker.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         }
