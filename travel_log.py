@@ -73,20 +73,29 @@ with col2:
 
     st.write("-----------------------")
     with st.container():
-        b1, b2 = st.columns(2)
+        b1, b2, b3 = st.columns(3)
         with b1:
-            if st.button("remove logs"):
-                st.session_state["logs"] = []
+            st.title("Log List")
         with b2:
+            if st.button("Delete all logs"):
+                st.session_state["logs"] = []
+        with b3:
             if st.button("Add random log"):
-                random_lat = random.random() * 0.5 + 39.8
-                random_lon = random.random() * 0.5 - 75.2
+                number = len(st.session_state["logs"])
+                random_lat = random.random() * 5 + 48.0
+                random_lon = random.random() * 5 + 10.0
                 random_marker = folium.Marker(
                     location=[random_lat, random_lon],
                     popup=f"Random marker at {random_lat:.2f}, {random_lon:.2f}",
+                    icon=folium.Icon(icon=str(number), prefix="fa", color="blue"),
                 )
                 st.session_state["logs"].append(
-                    log_entry(random_marker, "this is a random marker")
+                    log_entry(
+                        random_marker,
+                        "this is a random marker",
+                        description="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                        number=number,
+                    )
                 )
 
     # log list
@@ -117,13 +126,13 @@ with col1:
         zoom=st.session_state["zoom"],
         key="new",
         feature_group_to_add=fg,
-        height=400,
-        width=700,
+        height=600,
+        width=900,
     )
 
     # with this you can get which marker was last clicked - need to compare it to list of markers
-    if out.get("last_object_clicked"):
-        st.write(out.get("last_object_clicked"))
+    # if out.get("last_object_clicked"):
+    #     st.write(out.get("last_object_clicked"))
 
     # write the coordinates of the last clicked point into state
     if out.get("last_clicked"):
