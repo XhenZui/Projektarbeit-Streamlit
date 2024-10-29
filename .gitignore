@@ -6,7 +6,7 @@ __pycache__/
 *.lock
 secrets.toml
 
-
+*.pickle
 
 # C extensions
 *.so

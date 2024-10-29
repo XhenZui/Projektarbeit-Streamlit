@@ -4,6 +4,12 @@ from folium.features import Marker, Popup
 import random
 from streamlit_folium import st_folium
 from log import log_entry
+import safe_to_file
+
+
+if "logs" not in st.session_state:
+    st.session_state["logs"] = []
+    st.session_state["logs"] = safe_to_file.read_from_file()
 
 
 def get_pos(lat, lng):
@@ -124,3 +130,5 @@ with col1:
         #     st.session_state["last_clicked"]["lng"],
         # )
         # st.write(data)
+
+safe_to_file.save_to_file(st.session_state["logs"])
