@@ -10,9 +10,11 @@ class log_entry:
     name = ""
     description = ""
     address = ""
+    number = 0
 
-    def __init__(self, marker, name, description="", address=""):
+    def __init__(self, marker, name, description="", address="", number=0):
         self.marker = marker
         self.name = name
         self.description = description
         self.address = address
+        self.number = number

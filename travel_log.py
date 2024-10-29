@@ -26,7 +26,7 @@ if "last_clicked" not in st.session_state:
 if "create_menu" not in st.session_state:
     st.session_state["create_menu"] = False
 
-st.session_state["center"] = [45, -122]
+st.session_state["center"] = [48, 20]
 st.session_state["zoom"] = 4
 
 if "logs" not in st.session_state:
@@ -39,63 +39,66 @@ col1, col2 = st.columns(2)
 
 # buttons
 with col2:
-    # create menu
-    if not st.session_state["create_menu"]:
-        if st.button("Create log entry"):
-            st.session_state["create_menu"] = True
-    else:
-        if st.button("cancel"):
-            st.session_state["create_menu"] = False
-            if st.session_state["temp"] is not None:
-                st.session_state["temp"] = None
+    with st.container():
+        # create menu
+        if not st.session_state["create_menu"]:
+            if st.button("Create log entry"):
+                st.session_state["create_menu"] = True
+        else:
+            if st.button("cancel"):
+                st.session_state["create_menu"] = False
 
-    if st.session_state["create_menu"]:
-        # text inputs
-        name = st.text_input("Name", "my new log entry")
-        description = st.text_input(
-            "Description", "the description of my new log entry"
-        )
-
-        if st.button("confirm create"):
-            new_marker = folium.Marker(
-                location=[
-                    st.session_state["last_clicked"]["lat"],
-                    st.session_state["last_clicked"]["lng"],
-                ],
-                popup=name,
+        if st.session_state["create_menu"]:
+            # text inputs
+            name = st.text_input("Name", "my new log entry")
+            description = st.text_input(
+                "Description", "the description of my new log entry"
             )
-            st.session_state["logs"].append(
-                log_entry(new_marker, name, description=description)
-            )
-            st.session_state["create_menu"] = False
-            if st.session_state["temp"] is not None:
-                st.session_state["temp"] = None
-        st.write("-----------------------")
 
-    if st.button("remove logs"):
-        st.session_state["logs"] = []
+            if st.button("confirm create"):
+                number = len(st.session_state["logs"])
 
-    if st.button("Add random log"):
-        random_lat = random.random() * 0.5 + 39.8
-        random_lon = random.random() * 0.5 - 75.2
-        random_marker = folium.Marker(
-            location=[random_lat, random_lon],
-            popup=f"Random marker at {random_lat:.2f}, {random_lon:.2f}",
-        )
-        st.session_state["logs"].append(
-            log_entry(random_marker, "this is a random marker")
-        )
+                new_marker = folium.Marker(
+                    location=[
+                        st.session_state["last_clicked"]["lat"],
+                        st.session_state["last_clicked"]["lng"],
+                    ],
+                    popup=name,
+                    icon=folium.Icon(icon=str(number), prefix="fa", color="red"),
+                )
+                st.session_state["logs"].append(
+                    log_entry(new_marker, name, description=description, number=number)
+                )
+                st.session_state["create_menu"] = False
+
+    st.write("-----------------------")
+    with st.container():
+        b1, b2 = st.columns(2)
+        with b1:
+            if st.button("remove logs"):
+                st.session_state["logs"] = []
+        with b2:
+            if st.button("Add random log"):
+                random_lat = random.random() * 0.5 + 39.8
+                random_lon = random.random() * 0.5 - 75.2
+                random_marker = folium.Marker(
+                    location=[random_lat, random_lon],
+                    popup=f"Random marker at {random_lat:.2f}, {random_lon:.2f}",
+                )
+                st.session_state["logs"].append(
+                    log_entry(random_marker, "this is a random marker")
+                )
 
     # log list
     for log in st.session_state["logs"]:
-        st.write("-----------------------")
-        st.header(log.name)
-        if log.description != "":
-            st.write(log.description)
-        if log.address != "":
-            st.write(log.address)
-        if log.marker:
-            st.write(log.marker.location)
+        with st.expander(str(log.number) + " - " + log.name):
+            st.header(str(log.number) + " - " + log.name)
+            if log.description != "":
+                st.write(log.description)
+            if log.address != "":
+                st.write(log.address)
+            if log.marker:
+                st.write(log.marker.location)
 
 
 # create the map
@@ -104,8 +107,8 @@ with col1:
     fg = folium.FeatureGroup(name="Markers")
     for log in st.session_state["logs"]:
         fg.add_child(log.marker)
-    if st.session_state["temp"] is not None:
-        fg.add_child(st.session_state["temp"])
+    # if st.session_state["temp"] is not None:
+    #     fg.add_child(st.session_state["temp"])
     if st.session_state["create_menu"]:
         m.add_child(folium.ClickForMarker())
     out = st_folium(
