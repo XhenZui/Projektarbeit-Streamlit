@@ -11,5 +11,5 @@ def read_from_file():
     try:
         with open("travel_log_save.pickle", "rb") as inp:
             return pickle.load(inp)
-    except FileNotFoundError:
+    except Exception:
         return []
