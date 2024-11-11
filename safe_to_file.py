@@ -2,7 +2,6 @@ import pickle
 
 
 def save_to_file(obj):
-    # list of objects to save
     with open("travel_log_save.pickle", "wb") as outp:
         pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 

@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Pixi Run Streamlit App",
-            "type": "node-terminal", // or "bash" if you prefer
+            "type": "node-terminal",
             "request": "launch",
             "command": "pixi run streamlit run travel_log.py",
             "console": "integratedTerminal",

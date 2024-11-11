@@ -1,11 +1,11 @@
 import folium
 import streamlit as st
-from folium.features import Marker, Popup
 import random
 from streamlit_folium import st_folium
 from log import log_entry
 import safe_to_file
 
+# read data from file on a new run
 if "logs" not in st.session_state:
     st.session_state["logs"] = []
     st.session_state["logs"] = safe_to_file.read_from_file()
@@ -124,7 +124,7 @@ with col2:
                 )
             if log.picture:
                 st.image(log.picture)
-            if st.button(f"edit {log.number} {log.name}"):
+            if st.button(f"edit {log.number} - {log.name}"):
                 edit(log)
 
 

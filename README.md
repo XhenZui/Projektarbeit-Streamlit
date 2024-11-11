@@ -1,34 +1,31 @@
 # Projekt-Arbeit-Streamlit
+Diese Arbeit wurde im Rahmen der Projektarbeit mit dem Titel "Webentwicklung mit Streamlit und Python" im Wintersemester 24/25 an der Hochschule Karlsruhe erstellt. 
 
-# Aufgabenstellung
-Titel (deutsch)
-Webentwicklung mit Streamlit und Python
-Beschreibung (deutsch)
-
-Streamlit ist eine in Python geschriebenes Framework, dass angeblich die Entwicklungszeit von Anwendungen drastisch reduziert. Sie stellen in der Arbeit Streamlit vor und untersuchen es anhand eines eigenen Beispiels. https://streamlit.io/
-
-# stack
-streamlit.io https://docs.streamlit.io/
-pixi https://pixi.sh/latest/basic_usage/
-streamlit-folium 
+# Stack
+- streamlit.io https://docs.streamlit.io/
+- pixi https://pixi.sh/latest/basic_usage/
+- streamlit-folium https://folium.streamlit.app/
+- pickle https://docs.python.org/3/library/pickle.html
 
 
-
-
-
-# commands 
-
-benötigt pixi von prefix dev
-
-Installieren der dependencies
-pixi install
-
-ausführen mit vscode launch json run configs
-
-
-streamlit installation checken  pixi run streamlit hello
-
-pixi run streamlit run hello_world.py
-
+# Setup & Ausführung
+Für die Installation wird pixi von prefix dev benötigt (siehe stack).
+- Installieren der dependencies mit: `pixi install`
+- Ausführen mit vscode launch configs oder mit: `pixi run streamlit run travel_log.py`
+- Streamlit installation prüfen mit: `pixi run streamlit hello`
 # Datenspeicherung
-Der aktuelle stand wird als datei gespeichert in der datei travel_log_save.pickle
+Der aktuelle Zustand der App (Inhalt der log liste) wird als Datei mithilfe der pickle library gespeichert. Bei einem neustart wird der letzte Stand aus der Datei ausgelesen.
+# Travel Log
+Travel Log ist eine App zur erstellung eines Logbuches von Reisen.
+Dabei 
+# Fazit zu Streamlit
+Positiv:
+- Anlegen einer neuen App ist sehr einfach und unproblematisch
+- Einfaches anzeigen von Markdown
+- layouts konzept simpel und praktisch
+- keine tiefen python kenntnisse notwendig
+
+Negativ:
+- state ist nicht ganz einfach
+- konzept bei welchen aktionen der python code erneut ausgeführt führt anfangs zu verwirrung
+- Standard komponenten teilweise nicht sehr umfangreich, z.b. können st.expander nicht verschachtelt werden
