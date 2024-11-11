@@ -54,41 +54,38 @@ def edit(log):
 # buttons
 with col2:
     with st.container():
-        # create menu
-        if not st.session_state["create_menu"]:
-            if st.button("Create log entry"):
-                st.session_state["create_menu"] = True
-        else:
-            if st.button("cancel"):
-                st.session_state["create_menu"] = False
-
-        if st.session_state["create_menu"]:
-            name = st.text_input("Name", "my new log entry")
-            description = st.text_input(
-                "Description", "the description of my new log entry"
-            )
-
-            if st.button("confirm create"):
-                number = len(st.session_state["logs"])
-
-                new_marker = folium.Marker(
-                    location=[
-                        st.session_state["last_clicked"]["lat"],
-                        st.session_state["last_clicked"]["lng"],
-                    ],
-                    popup=name,
-                    icon=folium.Icon(icon=str(number), prefix="fa", color="red"),
-                )
-                st.session_state["logs"].append(
-                    log_entry(new_marker, name, description=description, number=number)
-                )
-                st.session_state["create_menu"] = False
-
-    st.write("-----------------------")
-    with st.container():
         b1, b2, b3 = st.columns(3)
         with b1:
-            st.title("Log List")
+            if not st.session_state["create_menu"]:
+                if st.button("Create log entry"):
+                    st.session_state["create_menu"] = True
+            else:
+                if st.button("cancel"):
+                    st.session_state["create_menu"] = False
+
+            if st.session_state["create_menu"]:
+                name = st.text_input("Name", "my new log entry")
+                description = st.text_input(
+                    "Description", "the description of my new log entry"
+                )
+
+                if st.button("confirm create"):
+                    number = len(st.session_state["logs"])
+
+                    new_marker = folium.Marker(
+                        location=[
+                            st.session_state["last_clicked"]["lat"],
+                            st.session_state["last_clicked"]["lng"],
+                        ],
+                        popup=name,
+                        icon=folium.Icon(icon=str(number), prefix="fa", color="red"),
+                    )
+                    st.session_state["logs"].append(
+                        log_entry(
+                            new_marker, name, description=description, number=number
+                        )
+                    )
+                    st.session_state["create_menu"] = False
         with b2:
             if st.button("Delete all logs"):
                 st.session_state["logs"] = []
@@ -112,6 +109,8 @@ with col2:
                 )
 
     # log list
+    st.write("-----------------------")
+    st.title("Log List")
     for log in st.session_state["logs"]:
         with st.expander(str(log.number) + " - " + log.name):
             st.header(str(log.number) + " - " + log.name)
