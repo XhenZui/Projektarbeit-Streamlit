@@ -6,7 +6,6 @@ from streamlit_folium import st_folium
 from log import log_entry
 import safe_to_file
 
-
 if "logs" not in st.session_state:
     st.session_state["logs"] = []
     st.session_state["logs"] = safe_to_file.read_from_file()
@@ -15,8 +14,6 @@ if "logs" not in st.session_state:
 def get_pos(lat, lng):
     return lat, lng
 
-
-st.set_page_config(layout="wide")
 
 # initialize state
 if "last_clicked" not in st.session_state:
@@ -32,9 +29,26 @@ st.session_state["zoom"] = 4
 if "logs" not in st.session_state:
     st.session_state["logs"] = []
 
+# title and layout
+st.set_page_config(layout="wide")
 st.title("Travel Log")
-
 col1, col2 = st.columns(2)
+
+
+# edit dialog
+@st.dialog("edit log entry")
+def edit(log):
+    name = st.text_input("edit name", value=log.name)
+    description = st.text_input("edit description", value=log.description)
+    address = st.text_input("edit address", value=log.address)
+    picture = st.file_uploader("edit picture", type=["jpg", "png", "jpeg"])
+    if st.button("Submit"):
+        log.name = name
+        log.description = description
+        log.address = address
+        if picture is not None:
+            log.picture = picture
+        st.rerun()
 
 
 # buttons
@@ -49,7 +63,6 @@ with col2:
                 st.session_state["create_menu"] = False
 
         if st.session_state["create_menu"]:
-            # text inputs
             name = st.text_input("Name", "my new log entry")
             description = st.text_input(
                 "Description", "the description of my new log entry"
@@ -105,21 +118,27 @@ with col2:
             if log.description != "":
                 st.write(log.description)
             if log.address != "":
-                st.write(log.address)
+                st.write(f"address: {log.address}")
             if log.marker:
-                st.write(log.marker.location)
+                st.write(
+                    f"coordinates {log.marker.location[0]} , { log.marker.location[1]}"
+                )
+            if log.picture:
+                st.image(log.picture)
+            if st.button(f"edit {log.number} {log.name}"):
+                edit(log)
 
 
 # create the map
 with col1:
     m = folium.Map(location=[45, -122], zoom_start=8)
     fg = folium.FeatureGroup(name="Markers")
+
     for log in st.session_state["logs"]:
         fg.add_child(log.marker)
-    # if st.session_state["temp"] is not None:
-    #     fg.add_child(st.session_state["temp"])
     if st.session_state["create_menu"]:
         m.add_child(folium.ClickForMarker())
+
     out = st_folium(
         m,
         center=st.session_state["center"],
@@ -137,6 +156,7 @@ with col1:
     # write the coordinates of the last clicked point into state
     if out.get("last_clicked"):
         st.session_state["last_clicked"] = out.get("last_clicked")
+        # with this you can get the coordinates of the last clicked point
         # data = get_pos(
         #     st.session_state["last_clicked"]["lat"],
         #     st.session_state["last_clicked"]["lng"],

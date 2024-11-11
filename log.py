@@ -11,6 +11,7 @@ class log_entry:
     description = ""
     address = ""
     number = 0
+    picture = None
 
     def __init__(self, marker, name, description="", address="", number=0):
         self.marker = marker
