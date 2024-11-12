@@ -36,16 +36,20 @@ col1, col2 = st.columns(2)
 
 
 # edit dialog
-@st.dialog("edit log entry")
+@st.dialog("Edit log entry")
 def edit(log):
-    name = st.text_input("edit name", value=log.name)
-    description = st.text_input("edit description", value=log.description)
-    address = st.text_input("edit address", value=log.address)
-    picture = st.file_uploader("edit picture", type=["jpg", "png", "jpeg"])
+    name = st.text_input("Edit name", value=log.name)
+    description = st.text_input("Edit description", value=log.description)
+    address = st.text_input("Edit address", value=log.address)
+    picture = st.file_uploader("Edit picture", type=["jpg", "png", "jpeg"])
+    lat = st.text_input("Edit latitude", value=log.marker.location[0])
+    lng = st.text_input("Edit longitude", value=log.marker.location[1])
     if st.button("Submit"):
         log.name = name
         log.description = description
         log.address = address
+        log.marker.location[0] = lat
+        log.marker.location[1] = lng
         if picture is not None:
             log.picture = picture
         st.rerun()
@@ -60,7 +64,7 @@ with col2:
                 if st.button("Create log entry"):
                     st.session_state["create_menu"] = True
             else:
-                if st.button("cancel"):
+                if st.button("Cancel"):
                     st.session_state["create_menu"] = False
 
             if st.session_state["create_menu"]:
@@ -69,7 +73,7 @@ with col2:
                     "Description", "the description of my new log entry"
                 )
 
-                if st.button("confirm create"):
+                if st.button("Confirm create"):
                     number = len(st.session_state["logs"])
 
                     new_marker = folium.Marker(
@@ -103,7 +107,7 @@ with col2:
                     log_entry(
                         random_marker,
                         "this is a random marker",
-                        description="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                        description="this is the descripton of a random marker",
                         number=number,
                     )
                 )
@@ -117,10 +121,10 @@ with col2:
             if log.description != "":
                 st.write(log.description)
             if log.address != "":
-                st.write(f"address: {log.address}")
+                st.write(f"Address: {log.address}")
             if log.marker:
                 st.write(
-                    f"coordinates {log.marker.location[0]} , { log.marker.location[1]}"
+                    f"Coordinates: {log.marker.location[0]} , { log.marker.location[1]}"
                 )
             if log.picture:
                 st.image(log.picture)
